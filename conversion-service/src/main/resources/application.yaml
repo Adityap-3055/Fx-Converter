@@ -1,0 +1,32 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: conversion-service
+  profiles:
+    active: dev
+  # tells the app to gets its settings from our config server
+  config:
+    import: "optional:configserver:http://localhost:8888"
+
+# enable actuator endpoints so we can refresh settings dynamically
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,refresh"
+
+spring.cloud.openfeign.client.config:
+  partner-rate-service:
+    connectTimeout: 1000
+    readTimeout: 1500
+
+resilience4j.circuitbreaker:
+  instances:
+    partnerServiceBreaker:
+      registerHealthIndicator: true
+      slidingWindowSize: 5              # The 5-call sliding window requirement
+      failureRateThreshold: 50          # Open circuit if 50% fail
+      waitDurationInOpenState: 10000    # Wait 10s before trying again
+      permittedNumberOfCallsInHalfOpenState: 2

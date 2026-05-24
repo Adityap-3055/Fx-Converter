@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    web-application-type: reactive # <--- ADD THIS LINE
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: conversion-route
+          uri: http://localhost:8081 #tells where to send the traffic (conversion service)
+          predicates:                 # what incoming url triggers this routes
+            - Path=/api/v1/convert/**
+          filters:
+            # Strip /api/v1 from the path as conversion service only sees /convert
+            - RewritePath=/api/v1/(?<segment>.*), /$\{segment}
+            # scrub illegal admin parameters (verification 1)
+            - RemoveRequestParameter=bypassFees
+            - RemoveRequestParameter=debug
+            # injecting security headers onto the response
+            - AddResponseHeader=X-Frame-Options, DENY
