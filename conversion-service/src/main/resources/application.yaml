@@ -26,9 +26,18 @@ resilience4j.circuitbreaker:
   instances:
     partnerServiceBreaker:
       registerHealthIndicator: true
-      slidingWindowSize: 5              # The 5-call sliding window requirement
-      failureRateThreshold: 50          # Open circuit if 50% fail
-      waitDurationInOpenState: 10000    # Wait 10s before trying again
+      slidingWindowSize: 5
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10s
       permittedNumberOfCallsInHalfOpenState: 2
       ignoreExceptions:
         - com.tcs.conversionservice.exception.CurrencyNotSupportedException
+
+resilience4j.retry:
+  instances:
+    partnerServiceRetry:
+      maxAttempts: 3
+      waitDuration: 2s  # Waits 2 seconds between retries
+      # Notice we deleted the retryExceptions list!
+      ignoreExceptions:
+        - com.tcs.conversionservice.exception.CurrencyNotSupportedException # Do not retry 404s!

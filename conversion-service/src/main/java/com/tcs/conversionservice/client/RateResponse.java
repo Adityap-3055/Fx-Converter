@@ -10,11 +10,27 @@ import lombok.Data;
 /**
  * To create structured response throughout the application
  */
-@Data
 public class RateResponse {
 
     private String pair;
     private double rate;
+
+    public RateResponse() {
+    }
+
+    public RateResponse(String pair, double rate) {
+        this.pair = pair;
+        this.rate = rate;
+    }
+
+
+    public double getRate() {
+        return rate;
+    }
+
+    public String getPair() {
+        return pair;
+    }
 }
 
 

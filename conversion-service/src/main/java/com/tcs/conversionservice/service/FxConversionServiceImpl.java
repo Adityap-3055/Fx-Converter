@@ -5,6 +5,7 @@ import com.tcs.conversionservice.client.RateResponse;
 import com.tcs.conversionservice.exception.CurrencyNotSupportedException;
 import com.tcs.fxcommon.dto.ConversionResponse;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +41,8 @@ public class FxConversionServiceImpl implements FxConversionService{
      * @param amount - the amount result after converting including the fee markup
      * @return ConversionResponse that has the applied rate and the final calculated amount.
      */
-    @CircuitBreaker(name = "partnerServiceBreaker", fallbackMethod = "partnerRateFallback")
+    @Retry(name = "partnerServiceRetry", fallbackMethod = "partnerRateFallback")
+    @CircuitBreaker(name = "partnerServiceBreaker")
     public ConversionResponse convert(String source, String target, double amount){
 
         log.info("Calling partner-rate-service for {} to {}", source, target);

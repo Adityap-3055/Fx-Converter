@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
  * Contains conversion details and exchange rate information.
  */
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ConversionResponse {
 
@@ -23,4 +21,24 @@ public class ConversionResponse {
     private double convertedAmount;
     private boolean isStaleDate;        // will be used for Resilience4j fallback requirement
 
+    public ConversionResponse() {
+    }
+
+
+    public ConversionResponse(String source, String target, double amount, double exchangeRate, double convertedAmount, boolean isStaleDate) {
+        this.source = source;
+        this.target = target;
+        this.amount = amount;
+        this.exchangeRate = exchangeRate;
+        this.convertedAmount = convertedAmount;
+        this.isStaleDate = isStaleDate;
+    }
+
+
+    public String getSource() { return source; }
+    public String getTarget() { return target; }
+    public double getAmount() { return amount; }
+    public double getExchangeRate() { return exchangeRate; }
+    public double getConvertedAmount() { return convertedAmount; }
+    public boolean isStaleDate() { return isStaleDate; }
 }
