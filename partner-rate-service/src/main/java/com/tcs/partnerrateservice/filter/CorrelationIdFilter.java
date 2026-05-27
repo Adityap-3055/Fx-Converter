@@ -13,6 +13,15 @@ public class CorrelationIdFilter implements Filter {
     private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
     private static final String MDC_KEY = "correlationId";
 
+    /**
+     * Processes incoming requests to ensure correlation ID availability.
+     *
+     * @param request the HTTP servlet request containing potential correlation ID header
+     * @param response the HTTP servlet response
+     * @param chain the filter chain for request continuation
+     * @throws IOException if an I/O error occurs during filter processing
+     * @throws ServletException if a servlet-specific error occurs
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {

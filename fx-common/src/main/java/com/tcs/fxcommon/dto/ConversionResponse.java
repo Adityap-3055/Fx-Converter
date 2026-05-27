@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Response DTO for currency conversion requests.
+ * Contains conversion details and exchange rate information.
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +21,6 @@ public class ConversionResponse {
     private double amount;
     private double exchangeRate;
     private double convertedAmount;
-    private boolean isStaleDate;        // will be used later for Resilience4j fallback requirement
+    private boolean isStaleDate;        // will be used for Resilience4j fallback requirement
 
 }

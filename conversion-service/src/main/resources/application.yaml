@@ -30,3 +30,5 @@ resilience4j.circuitbreaker:
       failureRateThreshold: 50          # Open circuit if 50% fail
       waitDurationInOpenState: 10000    # Wait 10s before trying again
       permittedNumberOfCallsInHalfOpenState: 2
+      ignoreExceptions:
+        - com.tcs.conversionservice.exception.CurrencyNotSupportedException

@@ -7,6 +7,9 @@ import lombok.Data;
  * {"pair": "USD/EUR", "rate": 0.92}, our Feign client needs an object to map that data into.
  */
 
+/**
+ * To create structured response throughout the application
+ */
 @Data
 public class RateResponse {
 

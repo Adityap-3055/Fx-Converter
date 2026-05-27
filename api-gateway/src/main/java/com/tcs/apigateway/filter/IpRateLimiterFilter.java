@@ -20,6 +20,11 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Global reactive filter responsible for implementing a Token Bucket rate limiting algorithm.
+ * helps to restrict incoming traffic to a maximum of 3 requests per 10 seconds per IP address.
+ * Rejects excess requests immediately with an HTTP 429 (Too Many Requests) JSON response.
+ */
 @Component
 public class IpRateLimiterFilter implements GlobalFilter, Ordered {
 
@@ -29,6 +34,13 @@ public class IpRateLimiterFilter implements GlobalFilter, Ordered {
     private final Map<String,TokenBucket> buckets = new ConcurrentHashMap<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+
+    /**
+     * Filters incoming requests to enforce IP-based rate limiting.
+     * @param exchange - the current server exchange containing the request and response
+     * @param chain -
+     * @return
+     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain){
 

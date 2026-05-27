@@ -12,10 +12,16 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
+/**
+ * Global reactive filter that serves as the entry point for distributed tracing.
+ * Generates a unique UUID (Correlation ID) for every incoming request and injects it
+ * into the HTTP headers to trace the request lifecycle across all downstream microservices.
+ */
 @Component
 public class CorrelationTrackingFilter implements GlobalFilter, Ordered {
 
     private static final Logger log = LoggerFactory.getLogger(CorrelationTrackingFilter.class);
+
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

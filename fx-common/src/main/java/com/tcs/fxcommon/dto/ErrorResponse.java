@@ -5,12 +5,16 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * Standard error response DTO for API failures.
+ * Sent to clients with HTTP error status and details.
+ * */
 @Data
 @NoArgsConstructor
 public class ErrorResponse {
 
     private String timestamp;
-    private int status;
+    private int status;     // HTTP status code (400, 404, 500...)
     private String error;
     private String message;
     private String path;

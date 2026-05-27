@@ -6,6 +6,11 @@ import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuration class for OpenFeign outbound request interceptors.
+ * Extracts the correlation ID from the current thread's MDC and appends it to the HTTP headers
+ * of outbound Feign requests to ensure trace propagation to third-party services.
+ */
 @Configuration
 public class FeignInterceptorConfig {
 
