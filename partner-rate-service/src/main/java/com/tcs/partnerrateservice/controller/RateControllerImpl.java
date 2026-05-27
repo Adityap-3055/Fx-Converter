@@ -30,14 +30,12 @@ public class RateControllerImpl implements RateController{
      */
     @Override
     public ResponseEntity<RateResponse> getExchangeRate(String source, String target) {
-        // 1. Format the string
+        //  Format the string
         String pair = source.toUpperCase() + "/" + target.toUpperCase();
         log.info("Partner API received rate request for pair: {}", pair);
 
-        // 2. Ask the service for the rate
-        double rate = rateService.fetchRateForPair(pair);
 
-        // 3. Return the response
+        double rate = rateService.fetchRateForPair(pair);
         return ResponseEntity.ok(new RateResponse(pair, rate));
     }
 }
