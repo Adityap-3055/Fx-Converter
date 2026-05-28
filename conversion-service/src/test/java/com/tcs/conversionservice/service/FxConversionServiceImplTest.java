@@ -69,7 +69,6 @@ class FxConversionServiceImplTest {
 
         Throwable validationError = new CurrencyNotSupportedException("Invalid Pair");
 
-        // Act & Assert: Ensure the fallback throws the error outward instead of swallowing it
         assertThrows(CurrencyNotSupportedException.class, () -> {
             fxConversionService.partnerRateFallback("USD", "XXX", 100, validationError);
         });

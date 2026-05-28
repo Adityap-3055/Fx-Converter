@@ -20,7 +20,7 @@ public class FeignCustomErrorDecoder implements ErrorDecoder {
             return new CurrencyNotSupportedException("The requested currency pair is not supported.");
         }
 
-        // For 500s or timeouts Feign will do circuit breaking.
+
         return defaultErrorDecoder.decode(methodKey, response);
     }
 }
