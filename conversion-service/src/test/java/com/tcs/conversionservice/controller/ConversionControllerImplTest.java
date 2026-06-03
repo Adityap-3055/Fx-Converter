@@ -25,14 +25,15 @@ class ConversionControllerImplTest {
     void testConvert_Returns200Ok() throws Exception {
 
         ConversionResponse mockResponse = new ConversionResponse("USD", "INR", 100, 84.0, 8400.0, false);
+
         when(fxConversionService.convert("USD", "INR", 100)).thenReturn(mockResponse);
+
 
 
         mockMvc.perform(get("/convert")
                         .param("source", "USD")
                         .param("target", "INR")
-                        .param("amount", "100"))
-                .andExpect(status().isOk())
+                        .param("amount", "100")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.source").value("USD"))
                 .andExpect(jsonPath("$.convertedAmount").value(8400.0));
     }
@@ -40,6 +41,7 @@ class ConversionControllerImplTest {
     @Test
     void testConvert_NegativeAmount_Returns400BadRequest() throws Exception {
 
+        // for invalid input of -50.
         mockMvc.perform(get("/convert")
                         .param("source", "USD")
                         .param("target", "INR")

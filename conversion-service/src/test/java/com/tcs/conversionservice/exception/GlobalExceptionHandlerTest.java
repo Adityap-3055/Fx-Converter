@@ -16,15 +16,13 @@ class GlobalExceptionHandlerTest {
     @Test
     void testHandleCurrencyNotFound() {
 
-        CurrencyNotSupportedException ex =
-                new CurrencyNotSupportedException("Invalid pair");
+        CurrencyNotSupportedException ex = new CurrencyNotSupportedException("Invalid pair");
 
         HttpServletRequest request = mock(HttpServletRequest.class);
-
         when(request.getRequestURI()).thenReturn("/convert");
 
-        ErrorResponse response =
-                handler.handleCurrencyNotFound(ex, request).getBody();
+
+        ErrorResponse response = handler.handleCurrencyNotFound(ex, request).getBody();
 
         assertNotNull(response);
         assertEquals(400, response.getStatus());
@@ -33,15 +31,13 @@ class GlobalExceptionHandlerTest {
     @Test
     void testHandleValidationErrors() {
 
-        ConstraintViolationException ex =
-                new ConstraintViolationException("Invalid amount", null);
+        ConstraintViolationException ex = new ConstraintViolationException("Invalid amount", null);
 
         HttpServletRequest request = mock(HttpServletRequest.class);
 
         when(request.getRequestURI()).thenReturn("/convert");
 
-        ErrorResponse response =
-                handler.handleValidationErrors(ex, request).getBody();
+        ErrorResponse response = handler.handleValidationErrors(ex, request).getBody();
 
         assertNotNull(response);
         assertEquals(400, response.getStatus());

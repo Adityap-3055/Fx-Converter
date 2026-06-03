@@ -1,5 +1,6 @@
-package com.tcs.fxcommon.dto;
+package com.tcs.conversionservice.dto;
 
+import com.tcs.fxcommon.dto.ErrorResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -31,8 +31,7 @@
                 case "USD/EUR" -> 0.92;
                 case "EUR/USD" -> 1.09;
                 case "GBP/USD" -> 1.25;
-                default -> throw new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
+                default -> throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Currency pairs not supported by the partner service: " + pair
                 ); // Fallback for unsupported pairs
             };

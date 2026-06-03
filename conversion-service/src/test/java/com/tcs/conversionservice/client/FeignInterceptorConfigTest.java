@@ -16,34 +16,33 @@ class FeignInterceptorConfigTest {
     @BeforeEach
     @AfterEach
     void clearMDC() {
-        MDC.clear(); // Ensure MDC is clean before and after tests
+        MDC.clear(); // Ensuring MDC is clean before and after tests
     }
 
     @Test
     void testInterceptorAppliesCorrelationId() {
-        // Arrange
+
         MDC.put("correlationId", "test-uuid-123");
         RequestInterceptor interceptor = config.requestInterceptor();
         RequestTemplate template = new RequestTemplate();
 
-        // Act
+
         interceptor.apply(template);
 
-        // Assert
+
         assertTrue(template.headers().containsKey("X-Correlation-ID"));
         assertEquals("test-uuid-123", template.headers().get("X-Correlation-ID").iterator().next());
     }
 
     @Test
     void testInterceptorDoesNothingWhenNoCorrelationId() {
-        // Arrange: Empty MDC
+
         RequestInterceptor interceptor = config.requestInterceptor();
         RequestTemplate template = new RequestTemplate();
 
-        // Act
+
         interceptor.apply(template);
 
-        // Assert
         assertFalse(template.headers().containsKey("X-Correlation-ID"));
     }
 }

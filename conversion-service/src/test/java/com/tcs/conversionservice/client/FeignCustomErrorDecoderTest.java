@@ -23,27 +23,25 @@ class FeignCustomErrorDecoderTest {
                 .request(Request.create(Request.HttpMethod.GET, "/api", new HashMap<>(), null, Charset.defaultCharset(), null))
                 .build();
 
-        // Act
         Exception exception = decoder.decode("methodKey", response);
 
-        // Assert: Ensure it translated to our custom exception
         assertTrue(exception instanceof CurrencyNotSupportedException);
         assertEquals("The requested currency pair is not supported.", exception.getMessage());
     }
 
     @Test
     void testDecode_500_ReturnsDefaultException() {
-        // Arrange: Simulate a 500 response
+        // Simulate a 500 response
         Response response = Response.builder()
                 .status(500)
                 .reason("Internal Server Error")
                 .request(Request.create(Request.HttpMethod.GET, "/api", new HashMap<>(), null, Charset.defaultCharset(), null))
                 .build();
 
-        // Act
+
         Exception exception = decoder.decode("methodKey", response);
 
-        // Assert: Ensure it falls back to the default decoder
+
         assertFalse(exception instanceof CurrencyNotSupportedException);
     }
 }

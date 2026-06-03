@@ -20,7 +20,7 @@ public class FeignCustomErrorDecoder implements ErrorDecoder {
             return new CurrencyNotSupportedException("The requested currency pair is not supported.");
         }
 
-
+        // for messages other than 404.
         return defaultErrorDecoder.decode(methodKey, response);
     }
 }

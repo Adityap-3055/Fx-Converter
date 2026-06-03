@@ -1,4 +1,4 @@
-package com.tcs.gateway.filter;
+package com.tcs.apigateway.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

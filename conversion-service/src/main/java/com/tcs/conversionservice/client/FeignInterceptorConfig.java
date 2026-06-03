@@ -17,10 +17,14 @@ public class FeignInterceptorConfig {
     @Bean
     public RequestInterceptor requestInterceptor() {
         return new RequestInterceptor() {
+
+
             @Override
             public void apply(RequestTemplate template) {
-                // Grab the ID from the backpack
+                // Grab the ID from the mdc backpack
                 String correlationId = MDC.get("correlationId");
+
+
                 if (correlationId != null) {
                     // Inject it into the Feign request heading to the Partner Service
                     template.header("X-Correlation-ID", correlationId);

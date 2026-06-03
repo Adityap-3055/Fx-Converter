@@ -38,6 +38,5 @@ resilience4j.retry:
     partnerServiceRetry:
       maxAttempts: 3
       waitDuration: 2s  # Waits 2 seconds between retries
-      # Notice we deleted the retryExceptions list!
       ignoreExceptions:
-        - com.tcs.conversionservice.exception.CurrencyNotSupportedException # Do not retry 404s!
+        - com.tcs.conversionservice.exception.CurrencyNotSupportedException # not retry 404
